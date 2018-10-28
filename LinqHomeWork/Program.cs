@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LinqHomeWork
 {
@@ -61,15 +59,22 @@ namespace LinqHomeWork
 
             // The richest and the oldest???
             var theRichestAndTheOldest = persons
-                .OrderBy(p => p.Age)
-                .ThenBy(p => p.Balance)
-                .FirstOrDefault()
-                .Name;
+                .Where(
+                    p => p.Balance == persons.Select(per => per.Balance).Max() && 
+                    p.Age == persons.Select(per => per.Age).Max());
 
-            Console.WriteLine($"The richest and the oldest person: {theRichestAndTheOldest}");
+            Console.WriteLine($"The richest and the oldest person");
+
+            if (theRichestAndTheOldest.Count() == 0)
+            {
+                Console.WriteLine("No one found");
+            }
+            else
+            {
+                Console.WriteLine($"The richest and the oldest person: {theRichestAndTheOldest}");
+            }
             Console.WriteLine();
-
-
+            
             // 2)
             // Greater than 4000
 
@@ -122,7 +127,6 @@ namespace LinqHomeWork
             Age = age;
             Sex = sex;
             Balance = balance;
-
         }
     }
 }
